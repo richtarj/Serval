@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS "meta";
+CREATE TABLE meta(
+  id integer,
+  title text,
+  intro text,
+  conclusion text
+);
+DROP TABLE IF EXISTS "meta_v2";
+CREATE TABLE "meta_v2" ("id" INTEGER PRIMARY KEY  NOT NULL  UNIQUE , "title" text NOT NULL  UNIQUE , "intro" text, "conclusion" text);
+INSERT INTO "meta_v2" VALUES(1,'INSERT TEST','INTRO',NULL);
+DROP TABLE IF EXISTS "queries";
+CREATE TABLE queries(
+  id integer,
+  meta_id integer,
+  main text,
+  conditional text,
+  type text
+);
+DROP TABLE IF EXISTS "queries_v2";
+CREATE TABLE "queries_v2" ("id" INTEGER NOT NULL  UNIQUE , "meta_id" INTEGER NOT NULL  UNIQUE , "main_query" text NOT NULL , "conditional_query" text, "type" text NOT NULL , PRIMARY KEY ("id", "meta_id"));
+INSERT INTO "queries_v2" VALUES(1,1,'test',NULL,'sqlite');
