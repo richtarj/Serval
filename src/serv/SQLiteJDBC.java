@@ -24,6 +24,8 @@ public class SQLiteJDBC {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
+            // @TODO
+            // - change company to correct table name
             ResultSet rs = stmt.executeQuery( "SELECT * FROM COMPANY;" );
             while ( rs.next() ) {
                 String mainQuery = rs.getString("main_query");
@@ -53,6 +55,8 @@ public class SQLiteJDBC {
             queryObject query;
             while (!queries.empty()){
                 query = queries.pop();
+                // @TODO 
+                // - change company to correct table name
                 rs = stmt.executeQuery( "SELECT * FROM COMPANY WHERE id = \"" + query.getID() + "\"" );
                 if (rs.next() == false){
                     sql = "INSERT INTO QUERIES (main_query,conditional_query,type,id,meta_id) " +
@@ -60,6 +64,10 @@ public class SQLiteJDBC {
                     query.getType() + "," + query.getID() + "," + query.getMetaID() + ")";
                     stmt.executeUpdate(sql);
                 }
+                // @TODO
+                // if (rs.next() == true)
+                // -add an update function to update if the id is already there
+                // -add a modal dialog for user to confirm any overwrites
             }
             stmt.close();
         } catch (Exception e){
