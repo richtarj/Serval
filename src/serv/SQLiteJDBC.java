@@ -24,9 +24,7 @@ public class SQLiteJDBC {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            // @TODO
-            // - change company to correct table name
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM COMPANY;" );
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM queries;" );
             while ( rs.next() ) {
                 String mainQuery = rs.getString("main_query");
                 String  conditionalQuery = rs.getString("conditional_query");
@@ -55,9 +53,7 @@ public class SQLiteJDBC {
             queryObject query;
             while (!queries.empty()){
                 query = queries.pop();
-                // @TODO 
-                // - change company to correct table name
-                rs = stmt.executeQuery( "SELECT * FROM COMPANY WHERE id = \"" + query.getID() + "\"" );
+                rs = stmt.executeQuery( "SELECT * FROM meta WHERE id = \"" + query.getID() + "\"" );
                 if (rs.next() == false){
                     sql = "INSERT INTO QUERIES (main_query,conditional_query,type,id,meta_id) " +
                     "VALUES (" + query.getMainquery() + "," + query.getConditionalQuery() + "," + 
