@@ -1,3 +1,4 @@
+package reportingTool.src;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -21,23 +22,23 @@ public class Query_GUI extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField uxTitleBox;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Query_GUI dialog = new Query_GUI();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			Query_GUI dialog = new Query_GUI();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public Query_GUI() {
+	public Query_GUI(String[] list) {
 		setResizable(false);
 		setBounds(100, 100, 456, 658);
 		getContentPane().setLayout(new BorderLayout());
