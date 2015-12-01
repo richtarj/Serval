@@ -1,3 +1,5 @@
+package reportingTool.src;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.AbstractListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
+import javax.swing.JDialog;
 
 import java.awt.List;
 import java.awt.Color;
@@ -20,6 +23,8 @@ import java.util.Vector;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+
+import reportingTool.src.Query_GUI;
 
 
 public class Main_GUI {
@@ -62,6 +67,7 @@ public class Main_GUI {
 	private void initialize() {
 		if (DEBUG) {System.out.println("In Initialize()");}
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 528, 324);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -124,6 +130,11 @@ public class Main_GUI {
 		clearBtn.setBounds(359, 192, 76, 29);
 		clearBtn.addActionListener(clearListener);
 		panel.add(clearBtn);
+		
+		JButton uxEditBtn = new JButton("Edit");
+		uxEditBtn.setBounds(73, 192, 76, 29);
+		uxEditBtn.addActionListener(editListener);
+		panel.add(uxEditBtn);
 		
 	}
 	
@@ -221,6 +232,18 @@ public class Main_GUI {
 		{
 			selectedItems.clear();
 			RefreshSelected();
+		}
+	};
+	
+	private ActionListener editListener = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String[] l = null;
+			Query_GUI dialog = new Query_GUI(l);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setModal(true);
+			dialog.setVisible(true);
 		}
 	};
 }
