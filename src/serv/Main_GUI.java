@@ -19,12 +19,16 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.Vector;
+import java.util.Map;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
 import reportingTool.src.Query_GUI;
+import reportingTool.src.Query_Object;
+import reportingTool.src.Enums;
 
 
 public class Main_GUI {
@@ -239,11 +243,25 @@ public class Main_GUI {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			String[] l = null;
-			Query_GUI dialog = new Query_GUI(l);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setModal(true);
-			dialog.setVisible(true);
+			Query_GUI dialog = new Query_GUI(null);
+			Map<Enums, String> result = dialog.ShowDialog();
+			// Debug logic
+			if (DEBUG)
+			{
+				if (result != null)
+				{
+					System.out.println("DIALOG RETURNED:");
+					for(Enums f : result.keySet())
+					{
+						System.out.println(result.get(f));
+						System.out.println("=-=-=-=-=-=-=-=--=-=-=-=-");
+					}
+				}
+				else
+				{
+					System.out.println("DIALOG WAS CANCELED.");
+				}
+			}
 		}
 	};
 }
