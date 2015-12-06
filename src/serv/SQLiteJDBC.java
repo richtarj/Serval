@@ -58,9 +58,9 @@ public class SQLiteJDBC {
                 query = queries.pop();
                 rs = stmt.executeQuery( "SELECT * FROM meta WHERE id = \"" + query.getID() + "\"" );
                 if (rs.next() == false){
-                    sql = "INSERT INTO QUERIES (main_query,conditional_query,type,id,meta_id) " +
+                    sql = "INSERT INTO QUERIES (main_query,conditional_query,type,id,meta_id,introtxt,conclusiontxt) " +
                     "VALUES (" + query.getMainQuery() + "," + query.getConditionalQuery() + "," + 
-                    query.getType() + "," + query.getID() + "," + query.getMetaID() + ")";
+                    query.getType() + "," + query.getID() + "," + query.getMetaID()+ "," + query.getIntro() + "," + query.getConclusion() + ")";
                     stmt.executeUpdate(sql);
                 }
                 else{
