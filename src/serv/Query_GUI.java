@@ -14,21 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.JComboBox;
 
 import reportingTool.src.Query_Object;
-import reportingTool.src.Enums;
+import reportingTool.src.ErrorDialog;
 
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Vector;
 
 
+@SuppressWarnings("serial")
 public class Query_GUI extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -42,7 +40,9 @@ public class Query_GUI extends JDialog {
 	private JTextArea uxIntroBox;
 	private JTextArea uxMainBox;
 	private JTextArea uxConclusionBox;
+	private JComboBox<String> uxTypeCombo;
 	private boolean returnable;
+	private Query_Object query;
 	private String[] arr = 
 	{
 		"SQLite",
@@ -53,7 +53,6 @@ public class Query_GUI extends JDialog {
 		
 	};
 	private Vector<String> dbTypes = new Vector<String>(Arrays.asList(arr));
-	
 	
 //	/**
 //	 * Launch the application.
@@ -74,6 +73,8 @@ public class Query_GUI extends JDialog {
 	public Query_GUI(Query_Object q) {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setModal(true);
+		
+		query = q;
 		
 		setResizable(false);
 		setBounds(100, 100, 456, 675);
@@ -168,7 +169,7 @@ public class Query_GUI extends JDialog {
 		lblDbType.setBounds(41, 576, 64, 16);
 		contentPanel.add(lblDbType);
 		
-		JComboBox<String> uxTypeCombo = new JComboBox<String>(dbTypes);
+		uxTypeCombo = new JComboBox<String>(dbTypes);
 		uxTypeCombo.setBounds(117, 569, 327, 27);
 		contentPanel.add(uxTypeCombo);
 		{
@@ -198,21 +199,26 @@ public class Query_GUI extends JDialog {
 			uxIntroBox.setText(q.getIntro());
 			uxMainBox.setText(q.getMainQuery());
 			uxConclusionBox.setText(q.getConclusion());
+			uxTypeCombo.setSelectedItem(q.getType());
 		}
 	}
 	
-	public Map<Enums, String> ShowDialog()
+	public Query_Object ShowDialog()
 	{
 		this.setVisible(true);
 		if (returnable)
 		{
-			Map<Enums, String> d = new HashMap<Enums, String>();
-			d.put(Enums.TITLE, uxTitleBox.getText());
-			d.put(Enums.CONDITIONAL, uxConditionalBox.getText());
-			d.put(Enums.INTRO, uxIntroBox.getText());
-			d.put(Enums.MAIN, uxMainBox.getText());
-			d.put(Enums.CONCLUSION, uxConclusionBox.getText());
-			return d;
+			if (query == null)
+			{
+				query = new Query_Object();
+			}
+			query.setTitle(uxTitleBox.getText());
+			query.setConditionalQuery(uxConditionalBox.getText());
+			query.setIntro(uxIntroBox.getText());
+			query.setMainQuery(uxMainBox.getText());
+			query.setConclusion(uxConclusionBox.getText());
+			query.setType(dbTypes.get(uxTypeCombo.getSelectedIndex()));
+			return query;
 		}
 		else
 		{
@@ -220,7 +226,7 @@ public class Query_GUI extends JDialog {
 		}
 	}
 	
-	/**
+	/*
 	 * Used to catch the "TAB" keypress and replace it with 4 spaces
 	 * taken from an answer at:
 	 * http://stackoverflow.com/questions/363784/setting-the-tab-policy-in-swings-jtextpane
@@ -233,9 +239,20 @@ public class Query_GUI extends JDialog {
     	}
     }
 	
-	private void CheckContents()
+	private boolean CheckContents()
 	{
-		
+		if (uxTitleBox.getText().equals(""))
+		{
+			return false;
+		}
+		else if (uxMainBox.getText().equals(""))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	private ActionListener buttonListener = new ActionListener()
@@ -244,13 +261,31 @@ public class Query_GUI extends JDialog {
 		{
 			if (e.getActionCommand() == "OK")
 			{
-				returnable = true;
+				if (CheckContents())
+				{
+					returnable = true;
+					dispose();
+				}
+				else
+				{
+					if (uxTitleBox.getText().equals(""))
+					{
+						ErrorDialog d = new ErrorDialog("Title cannot be blank.");
+						d.ShowDialog();
+					}
+					else
+					{
+						ErrorDialog d = new ErrorDialog("Main query cannot be blank.");
+						d.ShowDialog();
+					}
+				}
+				
 			}
 			if (e.getActionCommand() == "CANCEL")
 			{
 				returnable = false;
+				dispose();
 			}
-			dispose();
 		}
 	};
 }

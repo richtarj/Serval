@@ -1,0 +1,29 @@
+(1) near ";": syntax error
+conditional_query, q.main_query, m.conclusion from queries q join meta m on q.meta_id = m.id;
+title          intro                      conditional_query  main_query                conclusion              
+-------------  -------------------------  -----------------  ------------------------  ------------------------
+Awesome Query  This is an awesome Query.                     select * from table_name  Wasn't It super awesome?
+select * from queries;
+id          meta_id     main_query                conditional_query  type      
+----------  ----------  ------------------------  -----------------  ----------
+1           1           select * from table_name                     SQLite    
+select m.title, m.intro, q.conditional_query, q.main_query, m.conclusion, q.type from queries q join meta m on q.meta_id = m.id;
+title          intro                      conditional_query  main_query                conclusion                type      
+-------------  -------------------------  -----------------  ------------------------  ------------------------  ----------
+Awesome Query  This is an awesome Query.                     select * from table_name  Wasn't It super awesome?  SQLite    
+select * from
+(
+select m.title, m.intro, q.conditional_query, q.main_query, m.conclusion, q.type from queries q join meta m on q.meta_id = m.id
+)
+where type = "SQLite";
+title          intro                      conditional_query  main_query                conclusion                type      
+-------------  -------------------------  -----------------  ------------------------  ------------------------  ----------
+Awesome Query  This is an awesome Query.                     select * from table_name  Wasn't It super awesome?  SQLite    
+select * from
+(
+select m.title, m.intro, q.conditional_query, q.id, m.id meta_id, q.main_query, m.conclusion, q.type from queries q join meta m on q.meta_id = m.id
+)
+where type = "SQLite";
+title          intro                      conditional_query  id          meta_id     main_query                conclusion                type      
+-------------  -------------------------  -----------------  ----------  ----------  ------------------------  ------------------------  ----------
+Awesome Query  This is an awesome Query.                     1           1           select * from table_name  Wasn't It super awesome?  SQLite    

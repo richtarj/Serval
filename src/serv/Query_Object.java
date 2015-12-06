@@ -115,7 +115,7 @@ public class Query_Object{
 	   title = arg;
 	}
    
-	public void setMainquery(String arg)
+	public void setMainQuery(String arg)
 	{
 		main_query = arg;
 	}
@@ -150,4 +150,9 @@ public class Query_Object{
     	conclusion = arg;
     }
     // endregion
+    
+    public String toString()
+    {
+    	return title;
+    }
 }
