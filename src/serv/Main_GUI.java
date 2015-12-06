@@ -1,4 +1,5 @@
-package reportingTool.src;
+//package reportingTool.src;
+package serv;
 
 import java.awt.EventQueue;
 
@@ -26,9 +27,9 @@ import java.util.Map;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
-import reportingTool.src.Query_GUI;
-import reportingTool.src.Query_Object;
-import reportingTool.src.Enums;
+import serv.Query_GUI;
+import serv.Query_Object;
+import serv.Enums;
 
 
 public class Main_GUI {

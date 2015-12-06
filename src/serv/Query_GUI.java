@@ -1,4 +1,4 @@
-package reportingTool.src;
+package serv;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -20,8 +20,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.JComboBox;
 
-import reportingTool.src.Query_Object;
-import reportingTool.src.Enums;
+import serv.Query_Object;
+import serv.Enums;
 
 import java.util.Arrays;
 import java.util.Map;
